@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>V-PokeVerse</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <h1><span class="blue">V</span> - <span class="pink">PokeVerse</span></h1>
+      <h2>EXPLORE THE POKEMON</h2>
+      <div class="search-container">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search Pokemon by name or ID..."
+        />
+        <button id="searchBtn">SEARCH</button>
+      </div>
+    </header>
+
+    <main id="pokedex" class="pokedex-grid">
+      <!-- Pokémon cards will be injected here -->
+    </main>
+
+    <div id="pagination" class="pagination-container"></div>
+
+    <!-- MODAL DETAIL POKEMON -->
+    <div id="pokemonModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="modalInner"></div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Copyright &copy; 2025 by VickyFirnansyah | All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
