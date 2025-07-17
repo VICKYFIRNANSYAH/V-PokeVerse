@@ -1,0 +1,132 @@
+/* RESPONSIF MOBILE */
+@media (max-width: 500px) {
+  .modal {
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .modal-content {
+    width: 92vw;
+    max-width: 92vw;
+    max-height: 90vh;
+    height: auto;
+    padding: 16px 14px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* konten di tengah */
+    justify-content: flex-start;
+    box-sizing: border-box;
+    border-radius: 14px;
+  }
+
+  .modal-content h2 {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  .modal-content img {
+    width: 80px;
+    margin: 0 auto 12px;
+  }
+
+  .stats {
+    width: 100%;
+    max-width: 260px;
+  }
+
+  .stat-line {
+    font-size: 0.75rem;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .stat-line span {
+    width: 70px;
+  }
+
+  .stat-bar {
+    height: 5px;
+    flex-grow: 1;
+    margin: 0 6px;
+  }
+
+  .abilities {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .ability-badge {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin: 3px;
+  }
+
+  .close {
+    font-size: 1.4rem;
+    top: 10px;
+    right: 10px;
+    position: absolute;
+  }
+
+  .pagination-container {
+    gap: 6px;
+    padding: 0 10px;
+  }
+
+  .pagination-container button {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  footer {
+    padding: 15px 10px;
+    font-size: 0.6rem;
+    line-height: 1.4;
+    text-align: center;
+  }
+}
+
+@media (min-width: 501px) and (max-width: 768px) {
+  .modal-content {
+    width: 90%;
+    max-width: 90%;
+    height: 95dvh;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  .modal-content h2 {
+    font-size: 1.4rem;
+  }
+
+  .modal-content img {
+    width: 100px;
+  }
+
+  .stat-line {
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+  }
+
+  .stat-line span {
+    width: 80px;
+  }
+
+  .stat-bar {
+    height: 6px;
+  }
+
+  .ability-badge {
+    font-size: 0.75rem;
+    padding: 4px 9px;
+  }
+
+  .close {
+    font-size: 1.6rem;
+  }
+}

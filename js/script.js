@@ -27,6 +27,7 @@ const typeColors = {
 };
 
 async function fetchPokemonList(limit = 1000) {
+  showLoading(); // ⏳ tampilkan loading
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
   const data = await res.json();
   const allDetails = await Promise.all(
@@ -34,6 +35,7 @@ async function fetchPokemonList(limit = 1000) {
   );
   allPokemonData = allDetails;
   renderPage(1);
+  hideLoading(); // ✅ sembunyikan loading setelah selesai
 }
 
 function renderPokemons(pokemonList) {
@@ -63,33 +65,42 @@ function renderPokemons(pokemonList) {
   });
 }
 
-function searchPokemon() {
+async function searchPokemon() {
   const query = searchInput.value.trim().toLowerCase();
 
   if (!query) {
-    renderPage(1); // reset
+    // Jika kolom pencarian kosong → tampilkan ulang semua Pokémon
+    currentData = allPokemonData;
+    renderPage(1, currentData);
     return;
   }
 
+  showLoading();
+
+  // Jika pencarian berupa ID angka
   if (!isNaN(query)) {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
-      .then((res) => {
-        if (!res.ok) throw new Error();
-        return res.json();
-      })
-      .then((data) => {
-        renderPokemons([data]);
-        document.getElementById("pagination").innerHTML = "";
-      })
-      .catch(() => {
-        pokedex.innerHTML = `<p style="color:red;text-align:center">No Pokémon found with ID "${query}"</p>`;
-      });
+    try {
+      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${query}`);
+      if (!res.ok) throw new Error();
+      const data = await res.json();
+      hideLoading();
+      currentData = [data];
+      renderPage(1, currentData); // hanya tampilkan 1 hasil
+    } catch {
+      hideLoading();
+      pokedex.innerHTML = `<p style="color:red;text-align:center">No Pokémon found with ID "${query}"</p>`;
+      document.getElementById("pagination").innerHTML = "";
+    }
     return;
   }
 
+  // Jika pencarian berupa nama (atau sebagian nama)
   const results = allPokemonData.filter((p) => p.name.includes(query));
+  hideLoading();
+
   if (results.length > 0) {
-    renderPage(1, results); // hasil pencarian dipaginasi juga
+    currentData = results; // Simpan hasil pencarian
+    renderPage(1, currentData); // Tampilkan hasil pencarian saja
   } else {
     pokedex.innerHTML = `<p style="color:red;text-align:center">No Pokémon found with name "${query}"</p>`;
     document.getElementById("pagination").innerHTML = "";
@@ -181,57 +192,61 @@ function renderPagination(totalItems) {
   const pagination = document.getElementById("pagination");
   pagination.innerHTML = "";
 
-  // Prev button
+  // PREV
   const prev = document.createElement("button");
   prev.textContent = "PREV";
   prev.disabled = currentPage === 1;
   prev.onclick = () => renderPage(currentPage - 1);
   pagination.appendChild(prev);
 
-  // First page
-  if (currentPage > 3) {
-    addPageButton(1);
-    if (currentPage > 4) {
-      addDots();
-    }
+  const maxVisible = 5;
+
+  const addBtn = (page, active = false) => {
+    const btn = document.createElement("button");
+    btn.textContent = page;
+    if (active) btn.classList.add("active");
+    btn.onclick = () => renderPage(page);
+    pagination.appendChild(btn);
+  };
+
+  const addDots = () => {
+    const span = document.createElement("span");
+    span.textContent = "...";
+    pagination.appendChild(span);
+  };
+
+  // always show first
+  addBtn(1, currentPage === 1);
+
+  if (currentPage > 3) addDots();
+
+  const start = Math.max(2, currentPage - 1);
+  const end = Math.min(totalPages - 1, currentPage + 1);
+
+  for (let i = start; i <= end; i++) {
+    addBtn(i, i === currentPage);
   }
 
-  // Page numbers around current
-  for (
-    let i = Math.max(1, currentPage - 2);
-    i <= Math.min(totalPages, currentPage + 2);
-    i++
-  ) {
-    addPageButton(i, i === currentPage);
+  if (currentPage < totalPages - 2) addDots();
+
+  if (totalPages > 1) {
+    addBtn(totalPages, currentPage === totalPages);
   }
 
-  // Last page
-  if (currentPage < totalPages - 2) {
-    if (currentPage < totalPages - 3) {
-      addDots();
-    }
-    addPageButton(totalPages);
-  }
-
-  // Next button
+  // NEXT
   const next = document.createElement("button");
   next.textContent = "NEXT";
   next.disabled = currentPage === totalPages;
   next.onclick = () => renderPage(currentPage + 1);
   pagination.appendChild(next);
+}
 
-  function addPageButton(page, isActive = false) {
-    const btn = document.createElement("button");
-    btn.textContent = page;
-    if (isActive) btn.classList.add("active");
-    btn.onclick = () => renderPage(page);
-    pagination.appendChild(btn);
-  }
+function showLoading() {
+  document.getElementById("loading").style.display = "block";
+  pokedex.style.display = "none";
+}
 
-  function addDots() {
-    const dots = document.createElement("span");
-    dots.textContent = "...";
-    dots.style.margin = "0 5px";
-    pagination.appendChild(dots);
-  }
+function hideLoading() {
+  document.getElementById("loading").style.display = "none";
+  pokedex.style.display = "grid"; // atau "block" sesuai gaya layout kamu
 }
