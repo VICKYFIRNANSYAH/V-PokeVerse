@@ -1,5 +1,22 @@
 /* RESPONSIF MOBILE */
 @media (max-width: 500px) {
+  .search-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px; /* beri jarak antara input dan tombol */
+  }
+
+  .search-container input {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  .search-container button {
+    width: 60%;
+    max-width: 200px;
+    padding: 12px 20px;
+  }
+
   .modal {
     align-items: center;
     justify-content: center;

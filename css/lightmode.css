@@ -1,0 +1,83 @@
+body.light {
+  background: linear-gradient(to right, #f0f0f0, #e0e0ff, #ffffff);
+  color: #000;
+}
+
+body.light h1,
+body.light .neon-header .blue,
+body.light .neon-header .pink {
+  color: #333;
+  text-shadow: none;
+}
+
+body.light .search-container input {
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 0 5px #aaa;
+}
+
+body.light .search-container input:focus {
+  box-shadow: 0 0 10px #666;
+}
+
+body.light .search-container button {
+  background: linear-gradient(to right, #0077ff, #b000ff);
+  color: #fff;
+}
+
+body.light .pokemon-card {
+  background: rgba(0, 0, 0, 0.05);
+  border: 2px solid #555;
+  color: #000;
+}
+
+body.light .pokemon-id {
+  color: #333;
+  background: rgba(0, 0, 0, 0.1);
+  text-shadow: none;
+}
+
+body.light .type {
+  box-shadow: none;
+}
+
+body.light .modal-content {
+  background: linear-gradient(to right, #fefefe, #f0eafc);
+  border: 2px solid #666;
+  color: #000;
+}
+
+body.light .close {
+  color: #900;
+}
+
+body.light .stat-bar {
+  background: #ddd;
+}
+
+body.light .stat-bar-inner {
+  background: #8000ff;
+}
+
+body.light footer {
+  background: rgba(200, 200, 200, 0.2);
+  color: #444;
+  text-shadow: none;
+  border-top: 1px solid #ccc;
+}
+
+body.light .pagination-container button {
+  border: 2px solid #333;
+  color: #000;
+}
+
+body.light .pagination-container button.active {
+  background: linear-gradient(135deg, #8000ff, #ff00ff);
+  color: white;
+  box-shadow: 0 0 10px #8000ff;
+}
+
+.dark-mode {
+  background-color: #111;
+  color: #fff;
+}

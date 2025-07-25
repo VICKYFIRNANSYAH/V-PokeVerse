@@ -7,6 +7,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-x: hidden;
 }
 
 header {
@@ -30,6 +31,24 @@ h1 {
 .neon-header .pink {
   color: #8000ff;
   text-shadow: 0 0 10px #8000ff, 0 0 20px #8000ff;
+}
+
+#toggleMode {
+  font-size: 0.6rem;
+  margin-top: 20px;
+  padding: 5px 15px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(to right, #0ef, #c800ff);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 10px #0ef;
+  transition: 0.3s ease;
+}
+
+#toggleMode:hover {
+  box-shadow: 0 0 20px #c800ff;
 }
 
 .search-container {
